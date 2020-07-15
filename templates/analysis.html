@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <center>
+          <h1>Crime Cluster</h1>
+          {{map_obj|safe}}
+        </center>
+      </div>
+      <div class="col">
+        <h1 id="plotMap">Plot Map</h1>
+        <form method="POST" class = "timeformdata">
+
+            {% csrf_token %}
+            <input id="datetimepick1" class = "datepick1" width="312" placeholder="Starting Date" name="staring_date" required/>
+            <input id="datetimepick2" class = "datepick2" width="312" placeholder="Ending Date" name="ening_date" required/>
+
+            <div class="form-group pmd-textfield pmd-textfield-filled pmd-textfield-floating-label">
+                <label for="small-filled-select" class="col-form-label-sm">Select Place</label>
+                <select id="small-filled-select" class="form-control form-control-sm select_state" name="state_name">
+                    <option></option>
+                    {% for loc in locations %}
+                        <option value="{{loc}}">{{loc}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="submit" class ="btn btn-success btn-xl" id="submit"name="submit" value="GET">
+        </form>
+      </div>
+    </div>
+  </div>
+    <script>
+        $('#datetimepick1').datetimepicker({ 
+            footer: true,
+            modal: true
+        });
+        $('#datetimepick2').datetimepicker({ 
+            footer: true,
+            modal: true
+        });
+    </script>
+{% endblock content %}

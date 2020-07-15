@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <table class="task_table">
+            <tr>
+                <th>Android Id</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>State</th>
+                <th>Address</th>
+                <th>Date</th>
+                <th>Destination URL</th>
+
+            </tr>
+            {% for loc,url in location %}
+                <tr>
+                    <td>{{loc.android_id}}</td>
+                    <td>{{loc.latitude}}</td>
+                    <td>{{loc.longitude}}</td>
+                    <td>{{loc.state}}</td>
+                    <td>{{loc.address}}</td>
+                    <td>{{loc.timestamp}}</td>
+                    <td> <a href="{{url}}" target="_blank">Location URL</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

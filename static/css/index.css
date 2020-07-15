@@ -1,0 +1,110 @@
+
+#task_button{
+  margin: 20px;
+}
+#btn_delete,#btn_update{
+  padding: 5%;
+  margin: 0%;
+}
+
+/* ----------------------------- */
+.task_table {
+    margin: 1em 0;
+    width: 100%;
+    overflow: hidden;
+    background: #FFF;
+    color: #024457;
+    border-radius: 10px;
+    border: 1px solid #167F92;
+  }
+  .task_table tr {
+    border: 1px solid #D9E4E6;
+  }
+  .task_table tr:nth-child(odd) {
+    background-color: #EAF3F3;
+  }
+  .task_table th {
+    display: none;
+    border: 1px solid #FFF;
+    background-color: #167F92;
+    color: #FFF;
+    padding: 1em;
+  }
+  .task_table th:first-child {
+    display: table-cell;
+    text-align: center;
+  }
+  .task_table th:nth-child(2) {
+    display: table-cell;
+  }
+  .task_table th:nth-child(2) span {
+    display: none;
+  }
+  .task_table th:nth-child(2):after {
+    content: attr(data-th);
+  }
+  @media (min-width: 480px) {
+    .task_table th:nth-child(2) span {
+      display: block;
+    }
+    .task_table th:nth-child(2):after {
+      display: none;
+    }
+  }
+  .task_table td {
+    display: block;
+    word-wrap: break-word;
+    max-width: 7em;
+  }
+  .task_table td:first-child {
+    display: table-cell;
+    text-align: center;
+    border-right: 1px solid #D9E4E6;
+  }
+  @media (min-width: 480px) {
+    .task_table td {
+      border: 1px solid #D9E4E6;
+    }
+  }
+  .task_table th, .task_table td {
+    text-align: left;
+    margin: .5em 1em;
+  }
+  @media (min-width: 480px) {
+    .task_table th, .task_table td {
+      display: table-cell;
+      padding: 1em;
+    }
+  }
+  
+  body {
+    padding: 0 2em;
+    font-family: Arial, sans-serif;
+    color: #024457;
+    background: #f2f2f2;
+  }
+  
+  h1 {
+    font-family: Verdana;
+    font-weight: normal;
+    color: #024457;
+  }
+  h1 span {
+    color: #167F92;
+  }
+
+/* --------------------------------------------------------------- */
+#handle_alert{
+    color: white;
+    background-color: red;
+    padding: 10px;
+    width: 50%;
+    border-radius: 30px 30px;
+}
+
+.handle_form{
+    margin-top: 60px;
+    padding: 20px;
+    border: 3px #167F92 solid;
+    border-radius: 5%;
+}
