@@ -3,7 +3,6 @@ from .forms import PoliceSignInForm
 from .models import Police,Location
 from .CountryStateClass import CountryStateData
 from datetime import datetime
-import timestring
 import folium
 import random
 
