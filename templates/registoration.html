@@ -13,15 +13,16 @@
     <body>
         <div  style="width: 40%; margin: 0px auto;">
             <div class= "handle_form">
-                <h1><span>Login In</span></h1>
+                <h1><span>Registoration Form</span></h1>
                 {% if alert %}
                     <p id="handle_alert" style="text-align: center;">{{ alert }}</p>
                 {% endif %}
                 <form method="POST">
                     {% csrf_token %}
-                    {{ form | crispy}}
-                    <input type="submit" class="btn btn-success" name="submit" value="Login In" >
-                    <a href="{% url 'registration' %}" class="btn btn-secondary active" role="button" aria-pressed="true">Register</a>
+                    {{ policeForm | crispy}}
+                    <input type="submit" class="btn btn-success" name="submit" value="Registor" >
+                    <a href="{% url 'LogIn' %}" class="btn btn-secondary active" role="button" aria-pressed="true">Go back</a>
+
                 </form>
             </div>    
         </div>

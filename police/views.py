@@ -1,12 +1,20 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import PoliceSignInForm
+from .forms import PoliceRegistration
 from .models import Police,Location
 from .CountryStateClass import CountryStateData
 from datetime import datetime
 import folium
 import random
+from django.core import serializers
+from django.http import JsonResponse
+import collections
+import json
 
 # Create your views here.
+def LoadLogin(request):
+    return redirect('LogIn')
+
 def LogIn(request):
     context = {}
     if request.method == "POST":
@@ -95,7 +103,7 @@ def analysisHome(request):
     if(request.method=='POST'):
         start_date = datetime.strptime(request.POST['staring_date'], "%H:%M %m/%d/%Y")
         end_date = datetime.strptime(request.POST['ening_date'], "%H:%M %m/%d/%Y")
-        state_name = request.POST['state_name']
+        state_name = request.POST['state_name'].lower()
         filtered_location = Location.objects.filter(timestamp__gte=start_date, timestamp__lte=end_date,state=state_name.lower())
         if(state_name is not None and start_date is not None and end_date is not None):
             context = {
@@ -116,4 +124,50 @@ def analysisHome(request):
                 'map_obj':empty_map()
             } 
         return render(request,"analysis.html",context)
-        
+
+#--------------------------------------------------------------------
+def register_to_system(request):
+    if(request.method == 'POST'):
+        PoliceReg = PoliceRegistration(request.POST)
+        if(PoliceReg.is_valid()):
+            PoliceReg.save()
+            request.session['username'] = PoliceReg.cleaned_data['username']
+            return redirect('home')
+    else:
+        PoliceForm = PoliceRegistration()
+        context = {
+            "policeForm":PoliceForm
+        }
+        return render(request,'registoration.html',context)
+    
+#-------------------------------------------------
+def return_states_counts(request):
+    if(request.method=='POST'):
+        states = []
+        start_date = datetime.strptime(request.POST['staring_date'], "%H:%M %m/%d/%Y")
+        end_date = datetime.strptime(request.POST['ening_date'], "%H:%M %m/%d/%Y")
+        filtered_location = Location.objects.filter(timestamp__gte=start_date, timestamp__lte=end_date)
+
+        for data in filtered_location:
+            states.append(data.state.capitalize())
+        states = dict(collections.Counter(states))
+        state_name = []
+        state_cnt = []
+        for name,cnt in states.items():
+            state_name.append(str(name))
+            state_cnt.append(int(cnt))
+
+        # print(state_name)
+        # print(state_cnt)
+
+        context ={
+            'states': state_name,
+            'count':state_cnt
+        }
+        return render(request,'present_graph.html', context)
+    else:
+        context ={
+            'states': [],
+            'count':[]
+        }
+        return render(request,'present_graph.html',context)

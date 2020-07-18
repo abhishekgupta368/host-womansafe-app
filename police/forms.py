@@ -10,3 +10,11 @@ class PoliceSignInForm(ModelForm):
         widgets = {
                 'password': forms.PasswordInput,
             }
+
+class PoliceRegistration(ModelForm):
+    class Meta:
+        model = Police
+        fields = '__all__'
+        widgets = {
+                'password': forms.PasswordInput,
+            }

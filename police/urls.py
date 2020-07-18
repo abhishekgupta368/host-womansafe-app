@@ -8,10 +8,13 @@ router = DefaultRouter()
 router.register('locations', LocationViewset, basename = 'locations')
 
 urlpatterns = [
+    path('',views.LoadLogin,name=''),
     path("LogIn/",views.LogIn,name="LogIn"),
     path("complaint_locations/",views.get_complaint_location,name="complaint_locations"),
     path("home/",views.HomePage,name ="home"),
     path("signOut/",views.sign_out,name="signOut"),
     path('analysis_page/',views.analysisHome,name="analysis_page"),
+    path('crime_rate/',views.return_states_counts,name="crime_rate"),
+    path('registration/',views.register_to_system,name="registration"),
     path('api/',include(router.urls),name='api'),# It is used to create view model data
 ]

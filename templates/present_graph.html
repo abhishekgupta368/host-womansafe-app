@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <center>
+          <h1>Crime Graph</h1>
+          <canvas id="bar-chart" width="150" height="100"></canvas>
+        </center>
+      </div>
+      <div class="col">
+        <h1 id="plotMap">Plot Map</h1>
+        <form method="POST" class = "timeformdata">
+            {% csrf_token %}
+            <input id="datetimepick1" class = "datepick1" width="312" placeholder="Starting Date" name="staring_date" required/>
+            <input id="datetimepick2" class = "datepick2" width="312" placeholder="Ending Date" name="ening_date" required/>
+            <input type="submit" class ="btn btn-success btn-xl" id="submit"name="submit" value="GET">
+        </form>
+      </div>
+    </div>
+  </div>
+    <script>
+        $('#datetimepick1').datetimepicker({ 
+            footer: true,
+            modal: true
+        });
+        $('#datetimepick2').datetimepicker({ 
+            footer: true,
+            modal: true
+        });
+        //-----------------------------------------------
+        function randomNumber() {
+          min = 0;
+          max = 255;  
+          return Math.floor(Math.random() * (max - min) + min); 
+      }  
+        function genrate_color(len) {
+          var bgColor = [];
+          for(var i=0;i<len;i++){
+            var red = randomNumber();
+            var green = randomNumber();
+            var blue = randomNumber();
+            col = "rgb("+red+","+green+","+blue+")";
+            bgColor.push(col);
+          }
+          return bgColor;
+        }
+        var state_label = {{ states | safe}};
+        var state_count = {{ count | safe}};
+        var color_list = genrate_color(state_count.length);
+        console.log(state_label);
+        console.log(state_count);
+
+        new Chart(document.getElementById("bar-chart"), {
+                  type: 'bar',
+                  data: {
+                    labels: state_label,
+                    datasets: [
+                      {
+                        label: "Crime Increase rate",
+                        backgroundColor: color_list,
+                        data: state_count
+                      }
+                    ]
+                  },
+                  options: {
+                    legend: { display: false },
+                    title: {
+                      display: true,
+                      text: ''
+                    },
+                    scales: {
+                    yAxes: [{
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Criminal records'
+                      }
+                    }],
+                    xAxes: [{
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'State names'
+                      }
+                    }],
+                  }
+                  }
+              });
+    </script>
+{% endblock content %}
