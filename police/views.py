@@ -77,13 +77,9 @@ def get_complaint_location(request):
     }
     return render(request,"complaints.html",context)
 
-def design_map(location_object):
-    for data in location_object:
-        temp = [float(data.latitude),float(data.longitude)]
-        break
-
+def design_map(location_object,state_name):
+    temp = CountryStateData().getCoodinates(state_name.capitalize())
     clst_map = folium.Map(temp,zoom_start=10)
-
     for data in location_object:
         tag = folium.Html("<b>"+str(data.android_id)+"</b>",script=True)
         pop_up = folium.Popup(tag,max_width=2650)
@@ -108,7 +104,7 @@ def analysisHome(request):
         if(state_name is not None and start_date is not None and end_date is not None):
             context = {
                 'locations': list_of_states,
-                'map_obj':design_map(filtered_location)
+                'map_obj':design_map(filtered_location,state_name)
             } 
             return render(request,"analysis.html",context) 
         else:
