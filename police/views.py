@@ -80,6 +80,7 @@ def get_complaint_location(request):
 def design_map(location_object,state_name):
     temp = CountryStateData().getCoodinates(state_name.capitalize())
     clst_map = folium.Map(temp,zoom_start=10)
+    
     for data in location_object:
         tag = folium.Html("<b>"+str(data.android_id)+"</b>",script=True)
         pop_up = folium.Popup(tag,max_width=2650)
