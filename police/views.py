@@ -168,3 +168,8 @@ def return_states_counts(request):
             'count':[]
         }
         return render(request,'present_graph.html',context)
+##--------------------------------------------------------------------
+
+def delete_complaint(request,id):
+    Location.objects.filter(id=id).delete()
+    return redirect('complaint_locations')

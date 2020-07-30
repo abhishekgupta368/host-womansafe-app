@@ -21,7 +21,11 @@
                     <td>{{loc.state}}</td>
                     <td>{{loc.address}}</td>
                     <td>{{loc.timestamp}}</td>
-                    <td> <a href="{{url}}" target="_blank">Location URL</a></td>
+                    <td> 
+                        <a href="{{url}}" target="_blank" style="margin-right: 10px;">Location URL</a>
+                        <a class="btn btn-primary" href="{% url 'delete_complaint' id=loc.id%}" role="button">Delete</a>
+                    </td>
+                    
                 </tr>
             {% endfor %}
         </table>

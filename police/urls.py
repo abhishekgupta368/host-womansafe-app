@@ -16,5 +16,6 @@ urlpatterns = [
     path('analysis_page/',views.analysisHome,name="analysis_page"),
     path('crime_rate/',views.return_states_counts,name="crime_rate"),
     path('registration/',views.register_to_system,name="registration"),
+    path('delete_complaint/<int:id>',views.delete_complaint,name="delete_complaint"),
     path('api/',include(router.urls),name='api'),# It is used to create view model data
 ]
